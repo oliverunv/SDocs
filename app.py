@@ -3,10 +3,12 @@ import pandas as pd
 import re
 from io import BytesIO
 
+st.set_page_config(layout="wide")
+
 # Load data (your cleaned paragraph-level CSV)
 @st.cache_data
 def load_data():
-    return pd.read_csv("SDocs_Sample.csv")
+    return pd.read_excel("2024_S-Docs_1-100.xlsx", engine="openpyxl")
 
 df = load_data()
 
@@ -32,7 +34,7 @@ if keywords_input:
         filtered_df[kw] = filtered_df['paragraph'].str.lower().apply(lambda x: int(kw in x))
 
     st.success(f"✅ Found {len(filtered_df)} matching paragraphs.")
-    st.dataframe(filtered_df[['symbol', 'title', 'page_number', 'paragraph'] + keywords])
+    st.dataframe(filtered_df[['symbol', 'title', 'paragraph', 'page_number'] + keywords])
 
     # Download button
     def convert_df_to_excel(df):
@@ -49,3 +51,4 @@ if keywords_input:
         file_name="filtered_letters.xlsx",
         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     )
+
