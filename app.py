@@ -8,7 +8,7 @@ st.set_page_config(layout="wide")
 # Load data (your cleaned paragraph-level CSV)
 @st.cache_data
 def load_data():
-    return pd.read_excel("2024_S-Docs_1-100.xlsx", engine="openpyxl")
+    return pd.read_excel("2024_sdocs.xlsx", engine="openpyxl")
 
 df = load_data()
 
